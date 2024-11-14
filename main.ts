@@ -8,7 +8,7 @@ const FormatMessages = (msg: WAWebJS.Message[]) => {
 };
 
 export async function main() {
-  const chats = await client.getChats();
+  const chats = (await client.getChats()).slice(0,10);
 
   const d = await Promise.all(
     chats.map(async (c) => {
