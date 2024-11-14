@@ -2,6 +2,7 @@
 import WAWebJS from "whatsapp-web.js";
 import "./Client/Zap";
 import { client } from "./Client/Zap";
+import { saveJsonToFile } from "./data/FileJson";
 
 const FormatMessages = (msg: WAWebJS.Message[]) => {
   return msg.map((m) => ({ from: m.from, fromMe: m.fromMe, body: m.body }));
@@ -16,6 +17,6 @@ export async function main() {
       return { id: c.id.user, mensagens: FormatMessages(msg) };
     })
   );
-
+  saveJsonToFile(d)
   return d;
 }
