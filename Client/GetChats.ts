@@ -1,6 +1,6 @@
 import WAWebJS from "whatsapp-web.js";
-import { client } from "./Client/Zap";
-import { saveJsonToFile } from "./data/FileJson";
+import { client } from "./Zap";
+import { saveJsonToFile } from "../data/FileJson";
 
 export const FormatMessages = (msg: WAWebJS.Message[]) => {
   return msg.map((m) => ({
