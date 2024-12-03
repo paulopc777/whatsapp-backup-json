@@ -3,7 +3,7 @@ import * as path from "path";
 
 export function saveJsonToFile(jsonData: object): void {
   const outputDir = "./output";
-  const filePath = path.join(outputDir, "data.json");
+  const filePath = path.join(outputDir, "DateNew.json");
 
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });

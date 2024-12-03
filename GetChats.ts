@@ -10,6 +10,7 @@ export const FormatMessages = (msg: WAWebJS.Message[]) => {
     body: m.body,
     date: m.timestamp,
     hasMedia: m.hasMedia,
+    hasReaction: m.hasReaction,
   }));
 };
 
@@ -18,8 +19,8 @@ export async function GetChatsMax(MaxContacts: number, MaxMessages: number) {
 
   const d = await Promise.all(
     chats.map(async (c) => {
-      const msg = await c.fetchMessages({ limit: MaxMessages });
-      return { id: c.id.user, mensagens: FormatMessages(msg) };
+      const msg = await c.fetchMessages({});
+      return { id: c.id.user, name: c.name, mensagens: FormatMessages(msg) };
     })
   );
   saveJsonToFile(d);
@@ -27,7 +28,9 @@ export async function GetChatsMax(MaxContacts: number, MaxMessages: number) {
 }
 
 export async function GetChatsByPhone(Phone: string, MaxMessages: number) {
-  const chat = (await client.getChats()).find((c) => c.id.user === Phone);
+  const chat = (await client.getChats())
+    .slice(0, 150)
+    .find((c) => c.id.user === Phone);
   if (chat) {
     const msg = await chat.fetchMessages({ limit: MaxMessages });
     return { id: chat.id.user, mensagens: FormatMessages(msg) };
