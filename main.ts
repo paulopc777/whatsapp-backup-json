@@ -21,7 +21,7 @@ async function waitForUserInput() {
 }
 
 async function save() {
-  const d = await GetChatsMax(200, 300); 
+  const d = await GetChatsMax(200); 
   if (d) saveJsonToFile(d); 
   await waitForUserInput();
   save()

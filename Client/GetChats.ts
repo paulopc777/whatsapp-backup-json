@@ -1,4 +1,4 @@
-import WAWebJS from "whatsapp-web.js";
+import WAWebJS, { Reaction } from "whatsapp-web.js";
 import { client } from "./Zap";
 import { saveJsonToFile } from "../data/FileJson";
 
@@ -14,13 +14,19 @@ export const FormatMessages = (msg: WAWebJS.Message[]) => {
   }));
 };
 
-export async function GetChatsMax(MaxContacts: number, MaxMessages: number) {
+export async function GetChatsMax(MaxContacts: number) {
   const chats = (await client.getChats()).slice(0, MaxContacts);
 
   const d = await Promise.all(
     chats.map(async (c) => {
-      const msg = await c.fetchMessages({});
-      return { id: c.id.user, name: c.name, mensagens: FormatMessages(msg) };
+      const msg = await c.fetchMessages({ limit: 9999 });
+      return {
+        id: c.id.user,
+        name: c.name,
+        isGroup: c.isGroup,
+        unreadCount: c.unreadCount,
+        mensagens: FormatMessages(msg)
+      };
     })
   );
   saveJsonToFile(d);

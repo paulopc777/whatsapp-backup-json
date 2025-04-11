@@ -1,5 +1,5 @@
 import { Client, LocalAuth } from "whatsapp-web.js";
-const qrcode = require("qrcode-terminal");
+import qrcode from "qrcode-terminal";
 
 export const client = new Client({
   authStrategy: new LocalAuth(),
